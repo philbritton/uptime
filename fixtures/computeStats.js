@@ -123,8 +123,4 @@ async.series([emptyStats, updateUptime, updateHourlyQosSinceTheFirstPing, update
     console.log('Computing complete');
   }
   setTimeout(function() { mongoose.connection.close(); }, 1000);
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923

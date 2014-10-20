@@ -11,7 +11,7 @@ var async         = require('async');
  * Check Routes
  */
 module.exports = function(app) {
-  
+
   app.get('/tags', function(req, res) {
     Tag
     .find()
@@ -31,7 +31,7 @@ module.exports = function(app) {
       next();
     });
   };
-  
+
   app.get('/tags/:name', loadTag, function(req, res, next) {
     res.json(req.tag);
   });
@@ -78,8 +78,4 @@ module.exports = function(app) {
     });
   });
 
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923

@@ -8,11 +8,11 @@
  *   exports.init = function() {
  *     require('./console').init();
  *   }
- * 
+ *
 =======
  * Installation
  * ------------
- * This plugin is enabled by default. To disable it, remove its entry 
+ * This plugin is enabled by default. To disable it, remove its entry
  * from the `plugins` key of the configuration:
  *
  *   // in config/production.yaml
@@ -23,11 +23,7 @@
 var Ping = require('../../models/ping');
 var CheckEvent = require('../../models/checkEvent');
 
-<<<<<<< HEAD
 exports.init = function(enableNewEvents, enableNewPings) {
-=======
-exports.initWebApp = function(enableNewEvents, enableNewPings) {
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   if (typeof enableNewEvents == 'undefined') enableNewEvents = true;
   if (typeof enableNewPings == 'undefined') enableNewPings = true;
   if (enableNewEvents) registerNewEventsLogger();
@@ -58,11 +54,7 @@ var registerNewEventsLogger = function() {
           messageColor = 'green+bold';
           break;
         default:
-<<<<<<< HEAD
          message += '(unnown event)';
-=======
-         message += '(unknown event)';
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
          messageColor = 'bold';
       }
 

@@ -13,7 +13,7 @@
 =======
  * Installation
  * ------------
- * This plugin is disabled by default. To enable it, add its entry 
+ * This plugin is disabled by default. To enable it, add its entry
  * to the `plugins` key of the configuration:
  *
  *   // in config/production.yaml
@@ -22,7 +22,7 @@
  *
  * Usage
  * -----
- * This plugin sends an email each time a check is started, goes down, or goes back up. 
+ * This plugin sends an email each time a check is started, goes down, or goes back up.
  * When the check goes down, the email contains the error details:
  *
  *   Object: [Down] Check "FooBar" just went down
@@ -45,7 +45,7 @@
  *     method:      SMTP  # possible methods are SMTP, SES, or Sendmail
  *     transport:         # see https://github.com/andris9/nodemailer for transport options
  *       service:   Gmail
- *       auth:            
+ *       auth:
  *         user:    foobar@gmail.com
  *         pass:    gursikso
  *     event:
@@ -53,7 +53,7 @@
  *       down:      true
  *       paused:    false
  *       restarted: false
- *     message:           
+ *     message:
  *       from:     'Fred Foo <foo@blurdybloop.com>'
  *       to:       'bar@blurdybloop.com, baz@blurdybloop.com'
 <<<<<<< HEAD
@@ -65,19 +65,11 @@
 var fs         = require('fs');
 var nodemailer = require('nodemailer');
 var moment     = require('moment');
-<<<<<<< HEAD
 var config     = require('config').email;
 var CheckEvent = require('../../models/checkEvent');
 var ejs        = require('ejs');
- 
-exports.init = function() {
-=======
-var CheckEvent = require('../../models/checkEvent');
-var ejs        = require('ejs');
 
-exports.initWebApp = function(options) {
-  var config = options.config.email;
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
+exports.init = function() {
   var mailer = nodemailer.createTransport(config.method, config.transport);
   var templateDir = __dirname + '/views/';
   CheckEvent.on('afterInsert', function(checkEvent) {
@@ -85,19 +77,11 @@ exports.initWebApp = function(options) {
     checkEvent.findCheck(function(err, check) {
       if (err) return console.error(err);
       var filename = templateDir + checkEvent.message + '.ejs';
-<<<<<<< HEAD
-      var renderOptions = { 
-        check: check, 
-        checkEvent: checkEvent, 
-        url: config.dashboardUrl, 
-        moment: moment, 
-=======
       var renderOptions = {
         check: check,
         checkEvent: checkEvent,
-        url: options.config.url,
+        url: config.dashboardUrl,
         moment: moment,
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
         filename: filename
       };
       var lines = ejs.render(fs.readFileSync(filename, 'utf8'), renderOptions).split('\n');
@@ -105,25 +89,13 @@ exports.initWebApp = function(options) {
         from:    config.message.from,
         to:      config.message.to,
         subject: lines.shift(),
-<<<<<<< HEAD
         text:    lines.join('\n'),
       };
       mailer.sendMail(mailOptions, function(err2, response) {
         if (err2) return console.error(err2);
-        console.log('Notified event by email: Check ' + check.name + ' ' + checkEvent.message);      
-=======
-        text:    lines.join('\n')
-      };
-      mailer.sendMail(mailOptions, function(err2, response) {
-        if (err2) return console.error('Email plugin error: %s', err2);
         console.log('Notified event by email: Check ' + check.name + ' ' + checkEvent.message);
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
       });
     });
   });
   console.log('Enabled Email notifications');
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923

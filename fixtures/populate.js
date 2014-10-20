@@ -10,11 +10,7 @@ var removeChecks = function(callback) {
   console.log('Removing Checks');
   async.series([
     function(cb) { CheckEvent.collection.remove(cb); },
-<<<<<<< HEAD
     function(cb) { Check.collection.remove(cb); },
-=======
-    function(cb) { Check.collection.remove(cb); }
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   ], callback);
 };
 
@@ -24,11 +20,7 @@ var createFixtureChecks = function(callback) {
     function(cb) { createDummyCheck(99.85, 'Good Quality', ['good', 'all'], cb); },
     function(cb) { createDummyCheck(99, 'Neun und neunzig Luftballons', ['average', 'all'], cb); },
     function(cb) { createDummyCheck(80, 'My Unstable Site', ['average', 'all'], cb); },
-<<<<<<< HEAD
     function(cb) { createDummyCheck(70, 'The lousy site I built for Al', ['low', 'all'], cb); },
-=======
-    function(cb) { createDummyCheck(70, 'The lousy site I built for Al', ['low', 'all'], cb); }
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   ], callback);
 };
 
@@ -61,18 +53,10 @@ var createFixturePings = function(callback) {
             check,
             'populator',
             'Dummy Error',
-<<<<<<< HEAD
             cb
           );
           nbPings++;
           if (nbPings % 288 == 0) {
-=======
-            null,
-            cb
-          );
-          nbPings++;
-          if (nbPings % 288 === 0) {
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
             console.log(new Date(date) + ' Created pings for check "' + check.name + '"');
           }
         },
@@ -89,8 +73,4 @@ async.series([removeChecks, createFixtureChecks, createFixturePings], function(e
     console.log('Computing complete');
   }
   setTimeout(function() { mongoose.connection.close(); }, 1000);
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
