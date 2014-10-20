@@ -5,7 +5,11 @@ var Schema = mongoose.Schema;
 var TagMonthlyStat = new Schema({
   name           : String,
   timestamp      : Date,
+<<<<<<< HEAD
   end            : Date, // end is stored becaus months have an uneven duration
+=======
+  end            : Date, // end is stored because months have an uneven duration
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   count          : Number,
   availability   : Number,
   responsiveness : Number,

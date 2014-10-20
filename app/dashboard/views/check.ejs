@@ -90,9 +90,15 @@ jQuery(document).ready(function($) {
   
   // initialize secondary navigation
   new StatNavigation(dateInterval);
+<<<<<<< HEAD
   
   // initialize date navigation
   new DateNavigation(dateInterval);
+=======
+
+  // initialize date navigation
+  new DateNavigation(dateInterval, 'check', <%- JSON.stringify(check) %>);
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   
   // hide alert after 5s
   window.setTimeout(function() {
@@ -124,4 +130,8 @@ jQuery(document).ready(function($) {
     }
   }, 15 * 60 * 1000);
 });
+<<<<<<< HEAD
 </script>
+=======
+</script>
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923

@@ -3,12 +3,44 @@
  *
  * Notifies all events (up, down, paused, restarted) by email
  *
+<<<<<<< HEAD
  * To enable the plugin, call init() from plugins/index.js
  *   exports.init = function() {
  *     require('./email').init();
  *   }
  *
  * Example configuration
+=======
+ * Installation
+ * ------------
+ * This plugin is disabled by default. To enable it, add its entry 
+ * to the `plugins` key of the configuration:
+ *
+ *   // in config/production.yaml
+ *   plugins:
+ *     - ./plugins/email
+ *
+ * Usage
+ * -----
+ * This plugin sends an email each time a check is started, goes down, or goes back up. 
+ * When the check goes down, the email contains the error details:
+ *
+ *   Object: [Down] Check "FooBar" just went down
+ *   On Thursday, September 4th 1986 8:30 PM,
+ *   a test on URL "http://foobar.com" failed with the following error:
+ *
+ *     Error 500
+ *
+ *   Uptime won't send anymore emails about this check until it goes back up.
+ *   ---------------------------------------------------------------------
+ *   This is an automated email sent from Uptime. Please don't reply to it.
+ *
+ * Configuration
+ * -------------
+ * Here is an example configuration:
+ *
+ *   // in config/production.yaml
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
  *   email:
  *     method:      SMTP  # possible methods are SMTP, SES, or Sendmail
  *     transport:         # see https://github.com/andris9/nodemailer for transport options
@@ -24,16 +56,28 @@
  *     message:           
  *       from:     'Fred Foo <foo@blurdybloop.com>'
  *       to:       'bar@blurdybloop.com, baz@blurdybloop.com'
+<<<<<<< HEAD
  *     dashboardUrl: 'http://localhost:8082'
+=======
+ *     # The email plugin also uses the main `url` param for hyperlinks in the sent emails
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
  */
 var fs         = require('fs');
 var nodemailer = require('nodemailer');
 var moment     = require('moment');
+<<<<<<< HEAD
 var config     = require('config').email;
 var CheckEvent = require('../../models/checkEvent');
 var ejs        = require('ejs');
  
 exports.init = function() {
+=======
+var CheckEvent = require('../../models/checkEvent');
+var ejs        = require('ejs');
+
+exports.initWebApp = function(options) {
+  var config = options.config.email;
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   var mailer = nodemailer.createTransport(config.method, config.transport);
   var templateDir = __dirname + '/views/';
   CheckEvent.on('afterInsert', function(checkEvent) {
@@ -41,11 +85,19 @@ exports.init = function() {
     checkEvent.findCheck(function(err, check) {
       if (err) return console.error(err);
       var filename = templateDir + checkEvent.message + '.ejs';
+<<<<<<< HEAD
       var renderOptions = { 
         check: check, 
         checkEvent: checkEvent, 
         url: config.dashboardUrl, 
         moment: moment, 
+=======
+      var renderOptions = {
+        check: check,
+        checkEvent: checkEvent,
+        url: options.config.url,
+        moment: moment,
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
         filename: filename
       };
       var lines = ejs.render(fs.readFileSync(filename, 'utf8'), renderOptions).split('\n');
@@ -53,13 +105,25 @@ exports.init = function() {
         from:    config.message.from,
         to:      config.message.to,
         subject: lines.shift(),
+<<<<<<< HEAD
         text:    lines.join('\n'),
       };
       mailer.sendMail(mailOptions, function(err2, response) {
         if (err2) return console.error(err2);
         console.log('Notified event by email: Check ' + check.name + ' ' + checkEvent.message);      
+=======
+        text:    lines.join('\n')
+      };
+      mailer.sendMail(mailOptions, function(err2, response) {
+        if (err2) return console.error('Email plugin error: %s', err2);
+        console.log('Notified event by email: Check ' + check.name + ' ' + checkEvent.message);
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
       });
     });
   });
   console.log('Enabled Email notifications');
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923

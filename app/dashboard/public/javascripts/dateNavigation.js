@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var DateNavigation = function(interval) {
   this.interval = interval;
   this.initialType = interval.type;
@@ -5,6 +6,15 @@ var DateNavigation = function(interval) {
   this.init();
 }
 DateNavigation.prototype.init = function() {
+=======
+var DateNavigation = function(interval, type, check) {
+  this.interval = interval;
+  this.initialType = interval.type;
+  this.initialDate = interval.date;
+  this.init(type, check);
+}
+DateNavigation.prototype.init = function(type, check) {
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   // redraw on date change
   this.redraw();
   var interval = this.interval;
@@ -16,6 +26,7 @@ DateNavigation.prototype.init = function() {
     interval.update(data.type, parseInt(data.date));
   });
   
+<<<<<<< HEAD
   // redraw date range when time passes to enable new intrerval buttons
   setInterval(this.redrawPeriods.bind(this), 5 * 60 * 1000);
   
@@ -24,6 +35,28 @@ DateNavigation.prototype.init = function() {
     var outages = this.stat ? this.stat.outages || [] : [];
     $('#dateNavigation .timeline').html(
       uptimeBar(this.begin.valueOf(), this.end.valueOf(), this.origin.valueOf(), outages)
+=======
+  // redraw date range when time passes to enable new interval buttons
+  setInterval(this.redrawPeriods.bind(this), 5 * 60 * 1000);
+
+  // redraw uptime bar when the data arrives
+  interval.on('refresh-stat', function() {
+    var outages = this.stat ? this.stat.outages || [] : [];
+    var args = {
+      from: interval.begin.valueOf(),
+      to: interval.end.valueOf(),
+      periods: outages
+    }
+
+    if (type == 'check') {
+      args.check = check;
+    } else if (type == 'tag') {
+      args.origin = this.origin.valueOf();
+    }
+
+    $('#dateNavigation .timeline').html(
+      uptimeBar(type, args)
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
     );
   });
   
@@ -152,13 +185,21 @@ DateNavigation.prototype.redrawZoom = function() {
   if (subType !== false && !this.interval.isMaxZoom()) {
     zoom += '<button class="btn btn-small" data-type="' + subType + '" data-date="' + this.interval.date + '"><li class="icon-zoom-in"></li></button>';
   } else {
+<<<<<<< HEAD
     zoom += '<button class="btn btn-small" disabled="disabled"><li class="icon-zoom-in"></li></button>'
+=======
+    zoom += '<button class="btn btn-small" disabled="disabled"><i class="icon-zoom-in"></i></button>'
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   }
   var superType = this.interval.superType(this.interval.type);
   if (superType !== false) {
     zoom += '<button class="btn btn-small" data-type="' + superType + '" data-date="' + this.interval.date + '"><li class="icon-zoom-out"></li></button>';
   } else {
+<<<<<<< HEAD
     zoom += '<button class="btn btn-small" disabled="disabled"><li class="icon-zoom-out"></li></button>'
+=======
+    zoom += '<button class="btn btn-small" disabled="disabled"><i class="icon-zoom-out"></i></button>'
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   }
   $('#dateNavigation .zoom').html(zoom);
 }
@@ -166,4 +207,8 @@ DateNavigation.prototype.adjustWidth = function() {
   var navigationWidth = $('#dateNavigation .periods .btn-group').width() - 58;
   $('#dateNavigation .timeline').width(navigationWidth);
   $('.adjustedOnDateNavigation').width(navigationWidth);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923

@@ -11,7 +11,12 @@ var Ping = new Schema({
   monitorName  : String,
   // for pings in error, more details need to be persisted
   downtime     : Number,   // time since last ping if the ping is down
+<<<<<<< HEAD
   error        : String
+=======
+  error        : String,
+  details      : Schema.Types.Mixed
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
 });
 Ping.index({ timestamp: -1 });
 Ping.index({ check: 1 });
@@ -21,8 +26,20 @@ Ping.methods.findCheck = function(callback) {
   return this.db.model('Check').findById(this.check, callback);
 };
 
+<<<<<<< HEAD
 Ping.statics.createForCheck = function(status, timestamp, time, check, monitorName, error, callback) {
   timestamp = constructor == Date ? timestamp : new Date(parseInt(timestamp));
+=======
+Ping.methods.setDetails = function(details) {
+  this.details = details;
+  this.markModified('details');
+};
+
+Ping.statics.createForCheck = function(status, timestamp, time, check, monitorName, error, details, callback) {
+  timestamp = timestamp || new Date();
+  timestamp = timestamp instanceof Date ? timestamp : new Date(parseInt(timestamp, 10));
+
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   var ping = new this();
   ping.timestamp = timestamp;
   ping.isUp = status;
@@ -39,13 +56,23 @@ Ping.statics.createForCheck = function(status, timestamp, time, check, monitorNa
     ping.downtime = check.interval || 60000;
     ping.error = error;
   }
+<<<<<<< HEAD
+=======
+  if (details) {
+    ping.setDetails(JSON.parse(details));
+  }
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   ping.save(function(err1) {
     if (err1) return callback(err1);
     check.setLastTest(status, timestamp, error);
     check.save(function(err2) {
       if (err2) return callback(err2);
       callback(null, ping);
+<<<<<<< HEAD
     })
+=======
+    });
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   });
 };
 

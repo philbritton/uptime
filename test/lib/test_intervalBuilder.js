@@ -27,6 +27,7 @@ describe('intervalBuilder', function() {
     check1.save(function(err) {
       if (err) throw (err);
       async.series([
+<<<<<<< HEAD
         function(cb) { Ping.createForCheck(false, now - 3000, 100, check1, 'dummy1', '', cb); },
         function(cb) { Ping.createForCheck(false, now - 2000, 100, check1, 'dummy2', '', cb); },
         function(cb) { Ping.createForCheck(true,  now - 1000, 100, check1, 'dummy3', '', cb); },
@@ -34,6 +35,15 @@ describe('intervalBuilder', function() {
         function(cb) { Ping.createForCheck(true,  now + 1000, 100, check1, 'dummy5', '', cb); },
         function(cb) { Ping.createForCheck(false, now + 2000, 100, check1, 'dummy6', '', cb); },
         function(cb) { Ping.createForCheck(true,  now + 3000, 100, check1, 'dummy7', '', cb); },
+=======
+        function(cb) { Ping.createForCheck(false, now - 3000, 100, check1, 'dummy1', '', null, cb); },
+        function(cb) { Ping.createForCheck(false, now - 2000, 100, check1, 'dummy2', '', null, cb); },
+        function(cb) { Ping.createForCheck(true,  now - 1000, 100, check1, 'dummy3', '', null, cb); },
+        function(cb) { Ping.createForCheck(true,  now,        100, check1, 'dummy4', '', null, cb); },
+        function(cb) { Ping.createForCheck(true,  now + 1000, 100, check1, 'dummy5', '', null, cb); },
+        function(cb) { Ping.createForCheck(false, now + 2000, 100, check1, 'dummy6', '', null, cb); },
+        function(cb) { Ping.createForCheck(true,  now + 3000, 100, check1, 'dummy7', '', null, cb); }
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
       ], done);
     });
   });

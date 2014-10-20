@@ -26,7 +26,11 @@ var migrateCheckStats = function(name, callback) {
       responseTime: stat.time / stat.count,
       outages: [] // no way to get that back since CheckEvents are purged
     };
+<<<<<<< HEAD
     collection.update({ _id: stat._id }, { $set: newStat, $unset: unset });
+=======
+    collection.update({ _id: stat._id }, { $set: newStat, $unset: unset }, {}, function() {});
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
     nbMigratedDocuments++;
     if (nbMigratedDocuments % 100 == 0) {
       console.log('  Migrating ' + name + ' #' + nbMigratedDocuments);
@@ -55,7 +59,11 @@ var addEndToMonthlyStat = function(name, callback) {
       return;
     }
     var end = moment(stat.timestamp).endOf('month').toDate();
+<<<<<<< HEAD
     collection.update({ _id: stat._id }, { $set: { end: end } });
+=======
+    collection.update({ _id: stat._id }, { $set: { end: end } }, {}, function() {});
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
     nbMigratedDocuments++;
     if (nbMigratedDocuments % 100 == 0) {
       console.log('  Adding end date to ' + name + ' #' + nbMigratedDocuments);

@@ -62,7 +62,11 @@ module.exports = function(app) {
         timestamp: new Date(),
         check: req.check,
         tags: req.check.tags,
+<<<<<<< HEAD
         message: req.check.isPaused ? 'paused' : 'restarted',
+=======
+        message: req.check.isPaused ? 'paused' : 'restarted'
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
       }).save();
       res.redirect(app.route + '/checks/' + req.params.id);
     });
@@ -111,4 +115,46 @@ module.exports = function(app) {
     });
   });
 
+<<<<<<< HEAD
 };
+=======
+ app.put('/checks', function(req, res, next) {
+   var check = new Check();
+   try {
+     check.populateFromDirtyCheck(req.body, app.get('pollerCollection'));
+     app.emit('populateFromDirtyCheck', check, req.body, check.type);
+   } catch (checkException) {
+     return next(checkException);
+   }
+   check.save(function(saveError) {
+     if(saveError) return next({status:500, error: saveError});
+     res.json(check);
+   });
+ });
+
+ app.delete('/checks/:id', loadCheck, function (req, res, next) {
+  req.check.remove(function(err) {
+    if (err) return next(err);
+    res.end();
+  });
+ });
+
+ app.post('/checks/:id', function(req, res, next) {
+   Check.findOne({ _id: req.params.id }, function(err, check) {
+     if (err) return next({status:500, error: err});
+     if (!check) return next({status:404, error: 'failed to load check ' + req.params.id})
+
+     try {
+       check.populateFromDirtyCheck(req.body, app.get('pollerCollection'));
+       app.emit('populateFromDirtyCheck', check, req.body, check.type);
+     } catch (checkException) {
+       return next(checkException);
+     }
+     check.save(function(saveError) {
+       if(saveError) return next({status:500, error: saveError});
+       res.json(check);
+     });
+   });
+ });
+};
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923

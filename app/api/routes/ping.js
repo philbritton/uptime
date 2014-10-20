@@ -27,6 +27,7 @@ module.exports = function(app) {
       res.json(pings);
     });
   });
+<<<<<<< HEAD
   
   app.get('/pings/check/:id/:page?', function(req, res, next) {
     Check.count({ _id: req.params.id }, function(err, nb_checks) {
@@ -43,6 +44,8 @@ module.exports = function(app) {
       });
     });
   });
+=======
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
 
   app.get('/pings/events', function(req, res, next) {
     CheckEvent
@@ -64,19 +67,34 @@ module.exports = function(app) {
         return res.send(err1.message, 500);
       }
       if (!check) {
+<<<<<<< HEAD
         return rest.send('Error: No existing check with id ' + req.body.checkId, 403);
+=======
+        return res.send('Error: No existing check with id ' + req.body.checkId, 403);
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
       }
       if (!check.needsPoll) {
         return res.send('Error: This check was already polled. No ping was created', 403);
       }
       var status = req.body.status === 'true';
+<<<<<<< HEAD
       Ping.createForCheck(status, req.body.timestamp, req.body.time, check, req.body.name, req.body.error, function(err2, ping) {
+=======
+      Ping.createForCheck(status, req.body.timestamp, req.body.time, check, req.body.name, req.body.error, req.body.details,  function(err2, ping) {
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
         if (err2) {
           return res.send(err2.message, 500);
         }
         res.json(ping);
       });
+<<<<<<< HEAD
     })
   });
 
 };
+=======
+    });
+  });
+
+};
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923

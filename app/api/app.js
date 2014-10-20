@@ -7,6 +7,7 @@ var CheckEvent = require('../../models/checkEvent');
 
 var app = module.exports = express();
 
+<<<<<<< HEAD
 // middleware
 app.use(express.timeout(5000))
 app.use(function(req, res, next){
@@ -25,6 +26,26 @@ app.configure(function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
+=======
+var debugErrorHandler = function() {
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+}
+
+// middleware
+app.configure(function(){
+  app.use(app.router);
+});
+
+app.configure('development', debugErrorHandler);
+
+app.configure('test', debugErrorHandler);
+
+app.configure('production', function(){
+  app.use(express.errorHandler());
+});
+
+
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
 // up count
 var upCount;
 var refreshUpCount = function(callback) {

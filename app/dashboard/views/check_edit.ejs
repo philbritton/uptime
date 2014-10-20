@@ -6,7 +6,11 @@
 <% if (info.length) { %>
 <div class="alert alert-success"><%= info %></div>
 <% } %>
+<<<<<<< HEAD
 <%- partial('_check_details', { check: check, route: route }) %>
+=======
+<%- partial('_check_details', { check: check, pollerCollection: pollerCollection, pollerDetails: pollerDetails, route: route }) %>
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
 <div>
 </div>
 <script>
@@ -21,7 +25,11 @@ jQuery(document).ready(function($) {
   });
   
   // manage pause
+<<<<<<< HEAD
   $('button[name="pause"]').click(function(e) {
+=======
+  $('a[name="pause"]').click(function(e) {
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
     var button = $(this).children();
     $.getJSON('/api/checks/<%= check._id %>/pause', function() {
       if(button.hasClass('icon-pause')) {

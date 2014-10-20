@@ -20,6 +20,7 @@ var app = module.exports = express();
 
 app.configure(function(){
   app.use(partials());
+<<<<<<< HEAD
   app.use(express.cookieParser('uptime secret string'));
   app.use(express.session({ cookie: { maxAge: 60000 }}));
   app.use(express.timeout(5000))
@@ -36,6 +37,12 @@ app.use(express.bodyParser())
   app.use(flash());
   app.use(function locals(req, res, next) {
     res.locals.route = app.route;
+=======
+  app.use(flash());
+  app.use(function locals(req, res, next) {
+    res.locals.route = app.route;
+    res.locals.addedCss = [];
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
     res.locals.renderCssTags = function (all) {
       if (all != undefined) {
         return all.map(function(css) {
@@ -63,7 +70,10 @@ app.configure('production', function(){
 });
 
 app.locals({
+<<<<<<< HEAD
   addedCss: [],
+=======
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   version: moduleInfo.version
 });
 
@@ -81,6 +91,7 @@ app.get('/checks', function(req, res, next) {
 });
 
 app.get('/checks/new', function(req, res) {
+<<<<<<< HEAD
   res.render('check_new', { check: new Check(), info: req.flash('info') });
 });
 
@@ -90,6 +101,20 @@ app.post('/checks', function(req, res, next) {
   check.tags = Check.convertTags(req.body.check.tags);
   check.interval = req.body.check.interval * 1000;
   check.type = Check.guessType(check.url);
+=======
+  res.render('check_new', { check: new Check(), pollerCollection: app.get('pollerCollection'), info: req.flash('info') });
+});
+
+app.post('/checks', function(req, res, next) {
+  var check = new Check();
+  try {
+    var dirtyCheck = req.body.check;
+    check.populateFromDirtyCheck(dirtyCheck, app.get('pollerCollection'))
+    app.emit('populateFromDirtyCheck', check, dirtyCheck, check.type);
+  } catch (err) {
+    return next(err);
+  }
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   check.save(function(err) {
     if (err) return next(err);
     req.flash('info', 'New check has been created');
@@ -109,6 +134,7 @@ app.get('/checks/:id/edit', function(req, res, next) {
   Check.findOne({ _id: req.params.id }, function(err, check) {
     if (err) return next(err);
     if (!check) return res.send(404, 'failed to load check ' + req.params.id);
+<<<<<<< HEAD
     res.render('check_edit', { check: check, info: req.flash('info'), req: req });
   });
 });
@@ -126,6 +152,41 @@ app.put('/checks/:id', function(req, res, next) {
     if (err) return next(err);
     req.flash('info', 'Changes have been saved');
     res.redirect(app.route + '/checks/' + req.params.id);
+=======
+    var pollerDetails = [];
+    app.emit('checkEdit', check.type, check, pollerDetails);
+    res.render('check_edit', { check: check, pollerCollection: app.get('pollerCollection'), pollerDetails: pollerDetails.join(''), info: req.flash('info'), req: req });
+  });
+});
+
+app.get('/pollerPartial/:type', function(req, res, next) {
+  var poller;
+  try {
+    poller = app.get('pollerCollection').getForType(req.params.type);
+  } catch (err) {
+    return next(err);
+  }
+  var pollerDetails = [];
+  app.emit('checkEdit', req.params.type, new Check(), pollerDetails);
+  res.send(pollerDetails.join(''));
+});
+
+app.put('/checks/:id', function(req, res, next) {
+  Check.findById(req.params.id, function(err, check) {
+    if (err) return next(err);
+    try {
+      var dirtyCheck = req.body.check;
+      check.populateFromDirtyCheck(dirtyCheck, app.get('pollerCollection'))
+      app.emit('populateFromDirtyCheck', check, dirtyCheck, check.type);
+    } catch (populationError) {
+      return next(populationError);
+    }
+    check.save(function(err2) {
+      if (err2) return next(err2);
+      req.flash('info', 'Changes have been saved');
+      res.redirect(app.route + '/checks/' + req.params.id);
+    });
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   });
 });
 
@@ -150,7 +211,13 @@ app.get('/tags', function(req, res, next) {
 
 app.get('/tags/:name', function(req, res, next) {
   Tag.findOne({ name: req.params.name }, function(err, tag) {
+<<<<<<< HEAD
     if (err) return next(err);
+=======
+    if (err) {
+      return next(err);
+    }
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
     if (!tag) return next(new Error('failed to load tag ' + req.params.name));
     res.render('tag', { tag: tag, req: req });
   });

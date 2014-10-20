@@ -7,7 +7,17 @@
     <a href="{{=  route + '/checks/' + stat.check._id +'?type=' + type + '&date=' + date }}">{{= stat.check.name }}</a>
     <a href="{{= stat.check.url }}" target="_blank"><img src="{{= route }}/images/external-link-ltr-icon.png"></a>
 </div>
+<<<<<<< HEAD
 {{- uptimeBar(begin, end, new Date(stat.check.firstTested).valueOf(), stat.outages || []) }}
+=======
+{{- uptimeBar('check', {
+        from: begin,
+        to: end,
+        periods: stat.outages || [],
+        check: stat.check
+    })
+}}
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
 </li>
 </script>
 <script>

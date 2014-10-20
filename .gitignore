@@ -1,5 +1,8 @@
 config/development.yaml
+<<<<<<< HEAD
 config/default.yaml
+=======
+>>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
 config/runtime.json
 plugins/index.js
 node_modules
