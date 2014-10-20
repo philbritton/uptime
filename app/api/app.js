@@ -8,6 +8,17 @@ var CheckEvent = require('../../models/checkEvent');
 var app = module.exports = express();
 
 // middleware
+app.use(express.timeout(5000))
+app.use(function(req, res, next){
+  req.on('timeout',function(){
+    // pretend like data was written out
+    res.write = res.end = function(){ return true };
+    // no headers, plz
+    res.setHeader = res.writeHead = res.addTrailers = function(){};
+  });
+  next();
+})
+app.use(express.bodyParser())
 
 app.configure(function(){
   app.use(app.router);

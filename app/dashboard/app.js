@@ -22,6 +22,17 @@ app.configure(function(){
   app.use(partials());
   app.use(express.cookieParser('uptime secret string'));
   app.use(express.session({ cookie: { maxAge: 60000 }}));
+  app.use(express.timeout(5000))
+  app.use(function(req, res, next){
+    req.on('timeout',function(){
+      // pretend like data was written out
+      res.write = res.end = function(){ return true };
+      // no headers, plz
+      res.setHeader = res.writeHead = res.addTrailers = function(){};
+    });
+    next();
+  })
+app.use(express.bodyParser())
   app.use(flash());
   app.use(function locals(req, res, next) {
     res.locals.route = app.route;
