@@ -1,11 +1,12 @@
 url: 'http://localhost:8082'
 
 mongodb:
-  #server:   localhost
-  #database: uptime
-  #user:     root
-  #password:
-  connectionString:       mongodb://root:Dacgroup123@kahana.mongohq.com:10001/app27762431
+  server:   localhost
+#  server:   capital.1.mongolayer.com:10152,capital.0.mongolayer.com:10152
+  database: uptime
+#  user:     ninja
+#  password: Dacgroup123
+  connectionString:       mongodb://localhost/uptime
 
 monitor:
   name:                   origin
@@ -45,10 +46,10 @@ email:
     to:              # The message recipient, e.g. 'bar@blurdybloop.com, baz@blurdybloop.com'
   # The email plugin also uses the main `url` param for hyperlinks in the sent emails
 
-basicAuth:
-  username:    admin
-  password:    password
-verbose: true # only used in dev
+# basicAuth:
+#   username:    admin
+#   password:    password
+# verbose: true # only used in dev
 
 webPageTest:
   server: 'http://www.webpagetest.org'

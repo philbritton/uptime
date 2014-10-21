@@ -80,8 +80,5 @@ DateInterval.prototype.trigger = function(eventName, params) {
   for (var i=0; i< this.listeners[eventName].length; i++) {
     this.listeners[eventName][i].apply(this, params || []);
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
+

@@ -17,17 +17,7 @@
   <h2>Data - Pings</h2>
   <table class="table ping" style="display:none">
     <thead>
-<<<<<<< HEAD
       <tr><th>Date</th><th>Status</th><th>Response time</th><th>Error</th></tr>
-=======
-      <tr>
-        <th>Date</th>
-        <th>Status</th>
-        <th>Response time</th>
-        <th>Details</th>
-        <th class="error">Error</th>
-      </tr>
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
     </thead>
     <tbody></tbody>
   </table>
@@ -49,26 +39,11 @@
     {{ if (ping.isUp && !ping.isResponsive) { }}<span class="label label-warning">Slow</span>{{ } }}
   </td>
   <td>{{= parseInt(ping.time) }}ms</td>
-<<<<<<< HEAD
   <td>{{= ping.error || '' }}</td>
-=======
-  <td>
-    {{ if (pingHasValidUrl(ping)) { }}
-      <a href="{{= ping.details.url }}">See report</a>
-    {{ } }}
-  </td>
-  <td class="error">{{= ping.error || '' }}</td>
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
 </tr>
 </script>
 <script>
 $(document).ready(function() {
-<<<<<<< HEAD
-=======
-  var pingHasValidUrl = function(ping) {
-    return ping.details && ping.details.url && /^([a-z]([a-z]|\d|\+|-|\.)*):(\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?((\[(|(v[\da-f]{1,}\.(([a-z]|\d|-|\.|_|~)|[!\$&'\(\)\*\+,;=]|:)+))\])|((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=])*)(:\d*)?)(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*|(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)|((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)|((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)){0})(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(ping.details.url);
-  };
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   var stat_template = document.getElementById('stat_template').innerHTML;
   var ping_template = document.getElementById('ping_template').innerHTML;
   var updateStats = function() {
@@ -87,11 +62,7 @@ $(document).ready(function() {
     if (type == 'hour') {
       // display pings
       $.each(stats, function(key, stat) {
-<<<<<<< HEAD
         lines.unshift(ejs.render(ping_template, { ping: stat }));
-=======
-          lines.unshift(ejs.render(ping_template, { ping: stat, pingHasValidUrl: pingHasValidUrl }));
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
       });
       $('#data .stat').hide();
       $('#data .ping tbody').html(lines.join(''));

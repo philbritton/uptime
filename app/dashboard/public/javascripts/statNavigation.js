@@ -23,8 +23,4 @@ StatNavigation.prototype.init = function() {
   $('#secondaryNav').affix({
     offset: $('#dateNavigation').position()
   });
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923

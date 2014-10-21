@@ -50,11 +50,7 @@ var page = {};
     </section>
     <section id="events">
     <h2>Downtime</h2>
-<<<<<<< HEAD
     <%- partial('_events', { url: '/api/tags/' + tag.name + '/events', route: route }) %>
-=======
-    <%- partial('_events', { url: '/api/tags/' + encodeURIComponent(tag.name) + '/events', route: route }) %>
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
     </section>
     <section id="responseTime">
     <%- partial('_responseTime') %>
@@ -63,17 +59,10 @@ var page = {};
     <%- partial('_responsiveness') %>
     </section>
     <section id="checks">
-<<<<<<< HEAD
     <%- partial('checks', { url: '/api/tags/' + tag.name + '/checks/', route: route } ) %>
     </section>
     <section id="data">
     <%- partial('_data', { url: '/api/tags/' + tag.name + '/stats/', route: route } ) %>
-=======
-    <%- partial('_checks', { url: '/api/tags/' + encodeURIComponent(tag.name) + '/checks/', route: route } ) %>
-    </section>
-    <section id="data">
-    <%- partial('_data', { url: '/api/tags/' + encodeURIComponent(tag.name) + '/stats/', route: route } ) %>
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
     </section>
   </div>
 </div>
@@ -82,11 +71,7 @@ var dateInterval = new DateInterval(
   '<%= req.query.type || 'month' %>',
   <%= req.query.date || Date.now() %>,
   <%= tag.firstTested.valueOf() %>,
-<<<<<<< HEAD
   '/api/tags/<%= tag.name %>/',
-=======
-  '/api/tags/<%= encodeURIComponent(tag.name) %>/',
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
   'day'
 );
 jQuery(document).ready(function($) {
@@ -95,16 +80,8 @@ jQuery(document).ready(function($) {
 
   // initialize secondary navigation
   new StatNavigation(dateInterval);
-<<<<<<< HEAD
-  
   // initialize date navigation
   new DateNavigation(dateInterval);
-=======
-
-  // initialize date navigation
-  new DateNavigation(dateInterval, 'tag');
->>>>>>> d9cc96cc835b65577e9bc8c94625eb2706a1b923
-
   // update stats every 15 minutes if looking at the current moment
   window.setInterval(function() {
     var now = Date.now();
