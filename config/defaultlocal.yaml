@@ -5,7 +5,7 @@ mongodb:
   #database: uptime
   #user:     root
   #password:
-  connectionString:       mongodb://root:Dacgroup123@kahana.mongohq.com:10001/app27762431
+  connectionString:       mongodb://user:password@kahana.mongohq.com:10001/database
 
 monitor:
   name:                   origin
