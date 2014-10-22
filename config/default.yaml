@@ -4,8 +4,8 @@ mongodb:
   server:   localhost
 #  server:   capital.1.mongolayer.com:10152,capital.0.mongolayer.com:10152
   database: uptime
-#  user:     ninja
-#  password: Dacgroup123
+#  user:     
+#  password: 
   connectionString:       mongodb://localhost/uptime
 
 monitor:
